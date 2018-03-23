@@ -1,94 +1,41 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>Search</h2>
+    <input v-model="word" type="text" name="" value="" placeholder="word">
+    <button @click="getDefinition()" type="button" name="button">Search</button>
     <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
+      <li v-for="(item, index) in definitions" :key="index">{{item.text}}</li>
     </ul>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      api: 'http://api.wordnik.com:80/v4',
+      word: '',
+      definitions: []
+    }
+  },
+  methods: {
+    getDefinition () {
+      console.log('searching')
+      axios.get(this.api + '/word.json/' + this.word + '/definitions', {
+        limit: 200,
+        partOfSpeech: 'noun',
+        includeRelated: true,
+        sourceDictionaries: 'all',
+        useCanonical: false,
+        includeTags: false,
+        api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+      }).then((list) => {
+        console.log('success')
+        this.word = ''
+        this.definitions = list
+      })
     }
   }
 }
