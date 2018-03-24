@@ -17,32 +17,7 @@
     </div>
     <ul>
       <li v-for="(item, index) in definitions" :key="index">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              {{item.partOfSpeech}}
-            </p>
-            <a href="#">{{item.sourceDictionary}}</a>
-            <a href="#" class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </a>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              {{item.text}}
-              <br>
-            </div>
-          </div>
-          <footer class="card-footer">
-            <p class="card-footer-item">
-              <span>
-                {{item.attributionText}}
-              </span>
-            </p>
-          </footer>
-        </div>
+        <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
       </li>
     </ul>
   </div>
@@ -50,6 +25,7 @@
 
 <script>
 import wordnikServices from '@/services/wordnik'
+import Card from '@/components/Card'
 export default {
   name: 'Searcher',
   data () {
@@ -58,6 +34,9 @@ export default {
       word: '',
       definitions: []
     }
+  },
+  components: {
+    Card
   },
   methods: {
     getDefinition () {
