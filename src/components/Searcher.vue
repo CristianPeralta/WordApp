@@ -5,11 +5,33 @@
     <button @click="getDefinition()" type="button" name="button">Search</button>
     <ul>
       <li v-for="(item, index) in definitions" :key="index">
-        <p>
-          {{item.text}}
-        </p>
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              {{item.sourceDictionaries}}
+            </p>
+            <a href="#" class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </a>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              {{item.text}}
+              <a href="#">{{item.partOfSpeech}}</a>
+              <br>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                {{item.attributionText}}
+              </span>
+            </p>
+          </footer>
+        </div>
       </li>
-
     </ul>
     <button @click="testDefinition()" type="button" name="button">Search</button>
   </div>
@@ -32,7 +54,6 @@ export default {
       wordnikServices.definitions(this.word, {
         params: {
           limit: 200,
-          partOfSpeech: 'noun',
           includeRelated: true,
           sourceDictionaries: 'all',
           useCanonical: false,
@@ -49,19 +70,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+@import 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css';
 </style>
