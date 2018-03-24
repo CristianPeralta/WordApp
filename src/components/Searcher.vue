@@ -1,15 +1,28 @@
 <template>
   <div class="hello">
-    <h2>Search</h2>
-    <input v-model="word" type="text" name="" value="" placeholder="word">
-    <button @click="getDefinition()" type="button" name="button">Search</button>
+    <div class="field">
+      <label class="label is-large" style="text-align: center;">Search</label>
+      <div class="control has-icons-left has-icons-right">
+        <input v-model="word" class="input is-large" type="email" placeholder="Type here!">
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope fa-xs"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-check fa-xs"></i>
+        </span>
+      </div>
+    </div>
+    <div class="box has-text-centered">
+      <button @click="getDefinition()" class="button is-primary">Go</button>
+    </div>
     <ul>
       <li v-for="(item, index) in definitions" :key="index">
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
-              {{item.sourceDictionaries}}
+              {{item.partOfSpeech}}
             </p>
+            <a href="#">{{item.sourceDictionary}}</a>
             <a href="#" class="card-header-icon" aria-label="more options">
               <span class="icon">
                 <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -19,7 +32,6 @@
           <div class="card-content">
             <div class="content">
               {{item.text}}
-              <a href="#">{{item.partOfSpeech}}</a>
               <br>
             </div>
           </div>
@@ -33,7 +45,6 @@
         </div>
       </li>
     </ul>
-    <button @click="testDefinition()" type="button" name="button">Search</button>
   </div>
 </template>
 
