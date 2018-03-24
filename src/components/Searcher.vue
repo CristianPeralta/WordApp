@@ -4,16 +4,21 @@
     <input v-model="word" type="text" name="" value="" placeholder="word">
     <button @click="getDefinition()" type="button" name="button">Search</button>
     <ul>
-      <li v-for="(item, index) in definitions" :key="index">{{item.text}}</li>
+      <li v-for="(item, index) in definitions" :key="index">
+        <p>
+          {{item.text}}
+        </p>
+      </li>
+
     </ul>
     <button @click="testDefinition()" type="button" name="button">Search</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import wordnikServices from '@/services/wordnik'
 export default {
-  name: 'HelloWorld',
+  name: 'Searcher',
   data () {
     return {
       api: 'http://api.wordnik.com:80/v4',
@@ -24,7 +29,7 @@ export default {
   methods: {
     getDefinition () {
       console.log('searching')
-      axios.get(this.api + '/word.json/' + this.word + '/definitions', {
+      wordnikServices.definitions(this.word, {
         params: {
           limit: 200,
           partOfSpeech: 'noun',
@@ -35,16 +40,8 @@ export default {
           api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
         }
       }).then((response) => {
-        console.log('success')
         this.word = ''
         this.definitions = response.data
-      })
-    },
-    testDefinition () {
-      axios.get('http://api.wordnik.com:80/v4/word.json/work/definitions?limit=200&partOfSpeech=noun&includeRelated=true&sourceDictionaries=all&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5').then((list) =>{
-        console.log('success')
-        this.word = ''
-        this.definitions = list.data
       })
     }
   }
