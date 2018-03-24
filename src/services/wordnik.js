@@ -4,6 +4,9 @@ export default {
   definitions (word, params) {
     return wApi().get('/word.json/' + word + '/definitions', params)
   },
+  hyphenation (word, params) {
+    return wApi().get('/word.json/' + word + '/hyphenation', params)
+  },
   signup (params) {
     return wApi().post('signup', params, {
       headers: {
