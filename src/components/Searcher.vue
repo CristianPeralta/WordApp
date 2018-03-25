@@ -21,23 +21,26 @@
       </p>
     </div>
     <div style="text-align: center; font-size: 30px;">
-      <div class="columns">
-        <div class="column"></div>
-        <div class="column">
-          <template  v-for="(item, index) in hyphenation">
-            <template v-if="item.type=='stress'">
-              <strong :key="index">{{item.text}} </strong>
-            </template>
-            <span v-else :key="index">{{item.text}} </span>
-          </template>
-        </div>
-        <div class="column">
-          <div id="audio" ref="audio"></div>
-        </div>
-        <div class="column"></div>
-      </div>
-
+      <template  v-for="(item, index) in hyphenation">
+        <template v-if="item.type=='stress'">
+          <strong :key="index">{{item.text}} </strong>
+        </template>
+        <span v-else :key="index">{{item.text}} </span>
+      </template>
     </div>
+    <div style="text-align: center; font-size: 30px;">
+      <div class="columns">
+        <template v-for="(item, index) in audio">
+          <div class="column" :key="index">
+            <video width="320" height="240" controls :src="item.fileUrl" type="audio/mpeg">
+
+            </video>
+          </div>
+        </template>
+      </div>
+    </div>
+    <br>
+    <br>
     <ul>
       <li v-for="(item, index) in definitions" :key="index">
         <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
@@ -142,7 +145,6 @@ export default {
         }
       }).then((response) => {
         this.audio = response.data
-        console.log(this.$refs.audio)
       })
     }
   }
