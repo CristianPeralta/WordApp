@@ -13,6 +13,9 @@ export default {
   antonym (word, params) {
     return wApi().get('/word.json/' + word + '/relatedWords', params)
   },
+  audio (word, params) {
+    return wApi().get('/word.json/' + word + '/audio', params)
+  },
   signup (params) {
     return wApi().post('signup', params, {
       headers: {

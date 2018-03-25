@@ -32,7 +32,7 @@
           </template>
         </div>
         <div class="column">
-          <div ref="audio"></div>
+          <div id="audio" ref="audio"></div>
         </div>
         <div class="column"></div>
       </div>
@@ -66,6 +66,7 @@ export default {
       hyphenation: [],
       synonym: [],
       antonym: [],
+      audio: [],
       choice: {
         'definition': this.getDefinition,
         'synonym': this.getSynomyn,
@@ -80,6 +81,7 @@ export default {
     search () {
       this.choice[this.option]()
       this.getHyphenation()
+      this.getAudio()
     },
     getDefinition () {
       console.log('searching')
@@ -132,6 +134,16 @@ export default {
       })
     },
     getAudio () {
+      wordnikServices.audio(this.word, {
+        params: {
+          useCanonical: false,
+          limit: 50,
+          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        }
+      }).then((response) => {
+        this.audio = response.data
+        console.log(this.$refs.audio)
+      })
     }
   }
 }
