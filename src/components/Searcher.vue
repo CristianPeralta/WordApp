@@ -1,20 +1,26 @@
 <template>
   <div class="hello">
-    <div class="field">
-      <label class="label is-large" style="text-align: center;">Search</label>
-      <div class="control has-icons-left has-icons-right">
-        <input v-model="word" class="input is-large" type="email" placeholder="Type here!">
-        <span class="icon is-small is-left">
-          <i class="fas fa-envelope fa-xs"></i>
+    <label class="label is-large" style="text-align: center;">Search</label>
+    <div class="field has-addons has-addons-centered">
+      <p class="control">
+        <span class="select">
+          <select>
+            <option>Definition</option>
+            <option>Synommyn</option>
+            <option>Antonyn</option>
+          </select>
         </span>
-        <span class="icon is-small is-right">
-          <i class="fas fa-check fa-xs"></i>
-        </span>
-      </div>
+      </p>
+      <p class="control">
+        <input v-model="word" class="input" type="text" placeholder="Type here!">
+      </p>
+      <p class="control">
+        <a @click="getDefinition()" class="button is-primary">
+          Go
+        </a>
+      </p>
     </div>
-    <div class="box has-text-centered">
-      <button @click="getDefinition()" class="button is-primary">Go</button>
-    </div>
+
     <div style="text-align: center; font-size: 30px;">
       <template  v-for="(item, index) in hyphenation">
         <template v-if="item.type=='stress'">
