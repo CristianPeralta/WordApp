@@ -10,6 +10,9 @@ export default {
   synonym (word, params) {
     return wApi().get('/word.json/' + word + '/relatedWords', params)
   },
+  antonym (word, params) {
+    return wApi().get('/word.json/' + word + '/relatedWords', params)
+  },
   signup (params) {
     return wApi().post('signup', params, {
       headers: {

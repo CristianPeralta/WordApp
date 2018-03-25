@@ -36,6 +36,9 @@
       <li v-for="(item, index) in synonym.words" :key="index">
         <Card :text="item"></Card>
       </li>
+      <li v-for="(item, index) in antonym.words" :key="index">
+        <Card :text="item"></Card>
+      </li>
     </ul>
   </div>
 </template>
@@ -105,6 +108,18 @@ export default {
         }
       }).then((response) => {
         this.synonym = response.data[0]
+      })
+    },
+    getAntonym () {
+      wordnikServices.antonym(this.word, {
+        params: {
+          useCanonical: false,
+          relationshipTypes: 'antonym',
+          limitPerRelationshipType: 20,
+          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        }
+      }).then((response) => {
+        this.antonym = response.data[0]
       })
     }
   }
