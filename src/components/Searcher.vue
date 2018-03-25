@@ -4,10 +4,10 @@
     <div class="field has-addons has-addons-centered">
       <p class="control">
         <span class="select">
-          <select>
-            <option>Definition</option>
-            <option>Synommyn</option>
-            <option>Antonyn</option>
+          <select v-model="option">
+            <option value="definition">Definition</option>
+            <option value="synonym">Synonym</option>
+            <option value="antonym">Antonym</option>
           </select>
         </span>
       </p>
@@ -15,7 +15,7 @@
         <input v-model="word" class="input" type="text" placeholder="Type here!">
       </p>
       <p class="control">
-        <a @click="getDefinition()" class="button is-primary">
+        <a @click="search()" class="button is-primary">
           Go
         </a>
       </p>
@@ -33,6 +33,9 @@
       <li v-for="(item, index) in definitions" :key="index">
         <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
       </li>
+      <li v-for="(item, index) in synonym.words" :key="index">
+        <Card :text="item"></Card>
+      </li>
     </ul>
   </div>
 </template>
@@ -46,14 +49,26 @@ export default {
     return {
       api: 'http://api.wordnik.com:80/v4',
       word: '',
+      option: 'definition',
       definitions: [],
-      hyphenation: []
+      hyphenation: [],
+      synonym: [],
+      antonym: [],
+      choice: {
+        'definition': this.getDefinition,
+        'synonym': this.getSynomyn,
+        'antonym': this.getAntonym
+      }
     }
   },
   components: {
     Card
   },
   methods: {
+    search () {
+      this.choice[this.option]()
+      this.getHyphenation()
+    },
     getDefinition () {
       console.log('searching')
       wordnikServices.definitions(this.word, {
@@ -67,7 +82,6 @@ export default {
         }
       }).then((response) => {
         this.definitions = response.data
-        this.getHyphenation()
       })
     },
     getHyphenation () {
@@ -79,6 +93,18 @@ export default {
         }
       }).then((response) => {
         this.hyphenation = response.data
+      })
+    },
+    getSynomyn () {
+      wordnikServices.synonym(this.word, {
+        params: {
+          useCanonical: false,
+          relationshipTypes: 'synonym',
+          limitPerRelationshipType: 20,
+          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        }
+      }).then((response) => {
+        this.synonym = response.data[0]
       })
     }
   }

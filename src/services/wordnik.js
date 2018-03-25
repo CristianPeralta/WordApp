@@ -7,6 +7,9 @@ export default {
   hyphenation (word, params) {
     return wApi().get('/word.json/' + word + '/hyphenation', params)
   },
+  synonym (word, params) {
+    return wApi().get('/word.json/' + word + '/relatedWords', params)
+  },
   signup (params) {
     return wApi().post('signup', params, {
       headers: {
