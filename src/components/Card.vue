@@ -19,9 +19,9 @@
     </div>
     <footer class="card-footer">
       <p class="card-footer-item">
-        <span>
+        <i>
           {{attribution}}
-        </span>
+        </i>
       </p>
     </footer>
   </div>

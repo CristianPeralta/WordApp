@@ -70,6 +70,7 @@ export default {
       synonym: [],
       antonym: [],
       audio: [],
+      wordOfDay: {},
       choice: {
         'definition': this.getDefinition,
         'synonym': this.getSynomyn,
@@ -79,6 +80,9 @@ export default {
   },
   components: {
     Card
+  },
+  created () {
+    this.getWordOfDay()
   },
   methods: {
     search () {
@@ -145,6 +149,16 @@ export default {
         }
       }).then((response) => {
         this.audio = response.data
+      })
+    },
+    getWordOfDay () {
+      wordnikServices.wordOfDay({
+        params: {
+          date: '2018-03-26',
+          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        }
+      }).then((response) => {
+        this.wordOfDay = response.data
       })
     }
   }

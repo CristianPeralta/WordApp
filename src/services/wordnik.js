@@ -16,6 +16,9 @@ export default {
   audio (word, params) {
     return wApi().get('/word.json/' + word + '/audio', params)
   },
+  wordOfDay (params) {
+    return wApi().get('/words.json/wordOfTheDay', params)
+  },
   signup (params) {
     return wApi().post('signup', params, {
       headers: {
