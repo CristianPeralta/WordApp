@@ -2,7 +2,7 @@
   <article class="media" style="padding:25px;">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img src="https://bulma.io/images/placeholders/128x128.png">
+          <img src="https://image.flaticon.com/icons/svg/259/259500.svg">
         </p>
       </figure>
       <div class="media-content">
@@ -19,7 +19,7 @@
         <article class="media">
           <figure class="media-left">
             <p class="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png">
+              <img src="https://www.flaticon.com/premium-icon/icons/svg/797/797446.svg">
             </p>
           </figure>
           <div class="media-content">
@@ -39,7 +39,7 @@
         <article class="media">
           <figure class="media-left">
             <p class="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png">
+              <img src="https://image.flaticon.com/icons/svg/468/468045.svg">
             </p>
           </figure>
           <div class="media-content">

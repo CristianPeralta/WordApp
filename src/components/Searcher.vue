@@ -22,7 +22,7 @@
     </div>
     <br>
     <br>
-    <div>
+    <div v-if="definitions.length==0">
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
         <div class="hero-body">
           <div class="container">
@@ -40,7 +40,7 @@
         <Article :word="wordOfDay"></Article>
       </template>
     </div>
-    <div>
+    <div style="text-align: center; font-size: 30px;">
       <template  v-for="(item, index) in hyphenation">
         <template v-if="item.type=='stress'">
           <strong :key="index">{{item.text}} </strong>
