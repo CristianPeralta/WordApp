@@ -24,14 +24,10 @@
           </figure>
           <div class="media-content">
             <div class="content">
-              <p>
-                <strong>Definitions</strong>
-                <br>
-                <li v-for="(item, index) in word.definitions" :key="index">
-                  <Card :source="item.partOfSpeech" :text="item.text" :attribution="item.source"></Card>
-                </li>
-                <br>
-              </p>
+              <strong>Definitions</strong>
+              <li v-for="(item, index) in word.definitions" :key="index">
+                <Card :source="item.partOfSpeech" :text="item.text" :attribution="item.source"></Card>
+              </li>
             </div>
           </div>
         </article>
@@ -44,14 +40,12 @@
           </figure>
           <div class="media-content">
             <div class="content">
-              <p>
-                <strong>Examples </strong>
-                <br>
-                <li v-for="(item, index) in word.examples" :key="index">
-                  <Card :source="item.title" :text="item.text"></Card>
-                </li>
-                <br>
-              </p>
+              <strong>Examples </strong>
+              <br>
+              <li v-for="(item, index) in word.examples" :key="index">
+                <Card :source="item.title" :text="item.text"></Card>
+              </li>
+              <br>
             </div>
           </div>
         </article>

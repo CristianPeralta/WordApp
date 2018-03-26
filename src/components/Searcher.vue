@@ -92,6 +92,7 @@ export default {
       antonym: [],
       audio: [],
       wordOfDay: {},
+      randomWord: {},
       choice: {
         'definition': this.getDefinition,
         'synonym': this.getSynomyn,
@@ -105,6 +106,7 @@ export default {
   },
   created () {
     this.getWordOfDay()
+    this.getRandomWord()
   },
   methods: {
     search () {
@@ -184,6 +186,12 @@ export default {
         }).then((response) => {
           this.wordOfDay = response.data
         })
+      })
+    },
+    getRandomWord () {
+      wordnikServices.randomWord().then((response) => {
+        console.log(response)
+        this.randomWord = response.data
       })
     },
     getDateToday () {
