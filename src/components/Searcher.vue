@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <label class="label is-large" style="text-align: center;">Search</label>
     <div class="field has-addons has-addons-centered">
       <p class="control">
@@ -20,7 +20,27 @@
         </a>
       </p>
     </div>
-    <div style="text-align: center; font-size: 30px;">
+    <br>
+    <br>
+    <div>
+      <section class="hero is-info" style="text-align: center; font-size: 30px;">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Word Of Day
+            </h1>
+            <h2 class="subtitle">
+              {{wordOfDay.word}}
+            </h2>
+          </div>
+        </div>
+      </section>
+      <template v-if="wordOfDay.word">
+        <br>
+        <Article :word="wordOfDay"></Article>
+      </template>
+    </div>
+    <div>
       <template  v-for="(item, index) in hyphenation">
         <template v-if="item.type=='stress'">
           <strong :key="index">{{item.text}} </strong>
@@ -58,6 +78,7 @@
 <script>
 import wordnikServices from '@/services/wordnik'
 import Card from '@/components/Card'
+import Article from '@/components/Article'
 export default {
   name: 'Searcher',
   data () {
@@ -79,7 +100,8 @@ export default {
     }
   },
   components: {
-    Card
+    Card,
+    Article
   },
   created () {
     this.getWordOfDay()
