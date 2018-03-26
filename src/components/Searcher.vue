@@ -152,13 +152,32 @@ export default {
       })
     },
     getWordOfDay () {
-      wordnikServices.wordOfDay({
-        params: {
-          date: '2018-03-26',
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+      this.getDateToday().then((date) => {
+        console.log(date)
+        wordnikServices.wordOfDay({
+          params: {
+            date: date,
+            api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+          }
+        }).then((response) => {
+          this.wordOfDay = response.data
+        })
+      })
+    },
+    getDateToday () {
+      return new Promise((resolve) => {
+        let today = new Date()
+        let dd = today.getDate()
+        let mm = today.getMonth() + 1
+        let yyyy = today.getFullYear()
+        if (dd < 10) {
+          dd = '0' + dd
         }
-      }).then((response) => {
-        this.wordOfDay = response.data
+        if (mm < 10) {
+          mm = '0' + mm
+        }
+        let todayDate = yyyy + '-' + mm + '-' + dd
+        resolve(todayDate)
       })
     }
   }
