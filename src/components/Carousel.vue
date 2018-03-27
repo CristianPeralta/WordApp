@@ -1,14 +1,14 @@
 <template lang="html">
-  <div id="slider">
-    <transition-group tag="div" :name="transitionName" class="slides-group">
+  <div id="slider" class="content-slide">
+    <transition-group tag="div" :name="transitionName">
       <div v-if="show" :key="current" class="slide" :class="slides[current].className">
         <p>I'm {{slides[current].className}}!</p>
       </div>
     </transition-group>
-    <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
+    <div class="btn-slide btn-prev" aria-label="Previous slide" @click="slide(-1)">
       &#10094;
     </div>
-    <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
+    <div class="btn-slide btn-next" aria-label="Next slide" @click="slide(1)">
       &#10095;
     </div>
     <footer>

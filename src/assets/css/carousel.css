@@ -47,7 +47,7 @@
 }
 
 /* SLIDER STYLES */
-body {
+.content-slide {
   overflow: hidden;
   margin: 0;
   font-size: 50px;
@@ -57,13 +57,13 @@ body {
 
 #slider {
   width: 100%;
-  height: 100vh;
+  height: content;
   position: relative;
 }
 
 .slide {
   width: 100%;
-  height: 100vh;
+  height: content;
   position: absolute;
   top: 0;
   left: 0;
@@ -72,7 +72,7 @@ body {
   justify-content: center;
 }
 
-.btn {
+.btn-slide {
   z-index: 10;
   cursor: pointer;
   border: 3px solid #fff;
@@ -82,7 +82,7 @@ body {
   width: 70px;
   height: 70px;
   position: absolute;
-  top: calc(50% - 35px);
+  top: 1%;
   left: 1%;
   transition: transform 0.3s ease-in-out;
   user-select: none;
