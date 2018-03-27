@@ -1,7 +1,7 @@
 <template lang="html">
-  <div id="slider" class="content-slide">
+  <div id="slider" class="content-slide" v-if="words.length>0">
     <transition-group tag="div" :name="transitionName">
-      <div v-if="show" :key="current" class="slide" :class="slides[current].className">
+      <div v-if="(show)&&(words[current].word)" :key="current" class="slide" :class="slides[currentColor].className">
         <p>You know {{words[current].word}}?</p>
       </div>
     </transition-group>
@@ -26,6 +26,8 @@ export default {
   data () {
     return {
       current: 0,
+      currentColor: 0,
+      currentColot: 0,
       direction: 1,
       transitionName: 'fade',
       show: false,
@@ -33,7 +35,7 @@ export default {
         { className: 'blue' },
         { className: 'red' },
         { className: 'yellow' },
-        { className: 'green'}
+        { className: 'green' }
       ],
       words: []
     }
@@ -48,19 +50,27 @@ export default {
         this.transitionName = 'slide-prev'
       }
       var len = this.slides.length
-      this.current = (this.current + dir % len + len) % len
+      this.currentColor = (this.currentColor + dir % len + len) % len
+      this.current++
       console.log(this.current)
     },
     getRandomWord () {
       wordnikServices.randomWord().then((response) => {
-        console.log(response)
         this.words.push(response.data)
       })
+    },
+    infinity () {
+      setInterval(() => {
+        this.slide(1)
+      }, 3000)
     }
+  },
+  created () {
+    this.getRandomWord()
   },
   mounted () {
     this.show = true
-    this.getRandomWord()
+    this.infinity()
   }
 }
 </script>

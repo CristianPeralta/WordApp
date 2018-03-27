@@ -39,6 +39,10 @@
       <br>
       <br>
       <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <Carousel></Carousel>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
