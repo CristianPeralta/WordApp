@@ -12,7 +12,7 @@
       <br><br>
       <br><br><br>
     </template>
-    <label class="label is-large" style="text-align: center;">Search</label>
+    <label class="label is-large title is-2" style="text-align: center;">Search</label>
     <div class="field has-addons has-addons-centered">
       <p class="control">
         <span class="select">
@@ -94,6 +94,7 @@
 import wordnikServices from '@/services/wordnik'
 import Card from '@/components/Card'
 import Article from '@/components/Article'
+import Carousel from '@/components/Carousel'
 export default {
   name: 'Searcher',
   data () {
@@ -117,7 +118,8 @@ export default {
   },
   components: {
     Card,
-    Article
+    Article,
+    Carousel
   },
   created () {
     this.getWordOfDay()
