@@ -1,5 +1,12 @@
 <template>
   <div>
+    <br>
+    <br>
+    <template v-if="definitions.length==0">
+      <br>
+      <br>
+      <br><br><br>
+    </template>
     <label class="label is-large" style="text-align: center;">Search</label>
     <div class="field has-addons has-addons-centered">
       <p class="control">
@@ -23,6 +30,9 @@
     <br>
     <br>
     <div v-if="definitions.length==0">
+      <br>
+      <br>
+      <br><br><br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
         <div class="hero-body">
           <div class="container">

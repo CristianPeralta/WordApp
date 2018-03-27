@@ -1,5 +1,7 @@
 import wApi from '@/services/source/wordnik'
 
+let apiKey = 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+
 export default {
   definitions (word, params) {
     return wApi().get('/word.json/' + word + '/definitions', params)
@@ -29,7 +31,7 @@ export default {
         maxDictionaryCount: '-1',
         minLength: 5,
         maxLength: '-1',
-        api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        api_key: apiKey
       }
     })
   },
