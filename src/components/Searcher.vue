@@ -71,6 +71,10 @@
         <span v-else :key="index">{{item.text}} </span>
       </template>
     </div>
+    <template v-if="overview.definitions">
+      <br>
+      <Article :word="overview"></Article>
+    </template>
     <div style="text-align: center; font-size: 30px;">
       <div class="columns">
         <template v-for="(item, index) in audio">
@@ -84,7 +88,7 @@
     </div>
     <br>
     <br>
-    <ul>
+    <ul v-if="!overview.definitions">
       <li v-for="(item, index) in definitions" :key="index">
         <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
       </li>
@@ -135,12 +139,19 @@ export default {
     this.getWordOfDay()
     this.getRandomWord()
   },
+  computed: {
+    overview () {
+      return {
+        definitions: this.definitions,
+        examples: this.examples.examples
+      }
+    }
+  },
   methods: {
     search () {
       this.choice[this.option]()
       this.getHyphenation()
       this.getAudio()
-      this.getExamples()
     },
     getDefinition (limit = 200) {
       console.log('searching')
@@ -156,6 +167,10 @@ export default {
       }).then((response) => {
         this.definitions = response.data
       })
+    },
+    getOverview () {
+      this.getDefinition(5)
+      this.getExamples()
     },
     getExamples () {
       wordnikServices.examples(this.word, {

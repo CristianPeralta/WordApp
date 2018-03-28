@@ -1,12 +1,12 @@
 <template lang="html">
   <article class="media" style="padding:25px;">
-      <figure class="media-left">
+      <figure class="media-left" v-if="word.note">
         <p class="image is-64x64">
           <img src="https://image.flaticon.com/icons/svg/259/259500.svg">
         </p>
       </figure>
       <div class="media-content">
-        <div class="content">
+        <div class="content" v-if="word.note">
           <p>
             <strong>Note</strong>
             <br>
