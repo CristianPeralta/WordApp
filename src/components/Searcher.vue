@@ -17,6 +17,7 @@
       <p class="control">
         <span class="select">
           <select v-model="option">
+            <option selected value="overview">Overview</option>
             <option value="definition">Definition</option>
             <option value="synonym">Synonym</option>
             <option value="antonym">Antonym</option>
@@ -110,6 +111,7 @@ export default {
       word: '',
       option: 'definition',
       definitions: [],
+      examples: [],
       hyphenation: [],
       synonym: [],
       antonym: [],
@@ -117,6 +119,7 @@ export default {
       wordOfDay: {},
       randomWord: {},
       choice: {
+        'overview': this.getOverview,
         'definition': this.getDefinition,
         'synonym': this.getSynomyn,
         'antonym': this.getAntonym
@@ -137,12 +140,13 @@ export default {
       this.choice[this.option]()
       this.getHyphenation()
       this.getAudio()
+      this.getExamples()
     },
-    getDefinition () {
+    getDefinition (limit = 200) {
       console.log('searching')
       wordnikServices.definitions(this.word, {
         params: {
-          limit: 200,
+          limit: limit,
           includeRelated: true,
           sourceDictionaries: 'all',
           useCanonical: false,
@@ -151,6 +155,19 @@ export default {
         }
       }).then((response) => {
         this.definitions = response.data
+      })
+    },
+    getExamples () {
+      wordnikServices.examples(this.word, {
+        params: {
+          includeDuplicates: false,
+          skip: 0,
+          useCanonical: false,
+          limit: 5,
+          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        }
+      }).then((response) => {
+        this.examples = response.data
       })
     },
     getHyphenation () {

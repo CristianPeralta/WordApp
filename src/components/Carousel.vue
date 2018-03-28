@@ -2,7 +2,11 @@
   <div id="slider" class="content-slide" v-if="words.length>0">
     <transition-group tag="div" :name="transitionName">
       <div v-if="(show)&&(words[current].word)" :key="current" class="slide" :class="slides[currentColor].className">
-        <p>You know {{words[current].word}}?</p>
+        <p>
+          <span>Do you know "</span>
+          <b @click="search(words[current].word)">{{words[current].word}}</b>
+          <span>"?</span>
+        </p>
       </div>
     </transition-group>
     <div class="btn-slide btn-prev" aria-label="Previous slide" @click="slide(-1)">
@@ -12,7 +16,7 @@
       &#10095;
     </div>
     <footer>
-      <span>By</span>
+      <span>Based</span>
       <a href="https://codepen.io/adaban/pen/qoqLJb">Ada</a>
     </footer>
   </div>
@@ -53,6 +57,9 @@ export default {
       this.currentColor = (this.currentColor + dir % len + len) % len
       this.current++
       console.log(this.current)
+    },
+    search () {
+
     },
     getRandomWord () {
       wordnikServices.randomWord().then((response) => {
