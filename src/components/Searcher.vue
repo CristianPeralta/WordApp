@@ -44,7 +44,7 @@
       <br>
       <br>
       <br>
-      <Carousel></Carousel>
+      <Carousel @clicked="explore"></Carousel>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
         <div class="hero-body">
@@ -71,10 +71,6 @@
         <span v-else :key="index">{{item.text}} </span>
       </template>
     </div>
-    <template v-if="overview.definitions">
-      <br>
-      <Article :word="overview"></Article>
-    </template>
     <div style="text-align: center; font-size: 30px;">
       <div class="columns">
         <template v-for="(item, index) in audio">
@@ -86,6 +82,10 @@
         </template>
       </div>
     </div>
+    <template v-if="overview.definitions.length>0">
+      <br>
+      <Article :word="overview"></Article>
+    </template>
     <br>
     <br>
     <ul v-if="!overview.definitions">
@@ -152,6 +152,13 @@ export default {
       this.choice[this.option]()
       this.getHyphenation()
       this.getAudio()
+    },
+    explore (value) {
+      this.word = value
+      this.option = 'overview'
+      this.getOverview()
+      this.getAudio()
+      this.getHyphenation()
     },
     getDefinition (limit = 200) {
       console.log('searching')

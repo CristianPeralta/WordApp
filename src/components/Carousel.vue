@@ -58,8 +58,8 @@ export default {
       this.current++
       console.log(this.current)
     },
-    search () {
-
+    search (word) {
+      this.$emit('clicked', word)
     },
     getRandomWord () {
       wordnikServices.randomWord().then((response) => {
