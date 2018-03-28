@@ -35,7 +35,7 @@
     </div>
     <br>
     <br>
-    <div v-if="definitions.length==0">
+    <div v-if="definitions.length==0 && synonym.length==0 && antonym.length==0">
       <br>
       <br>
       <br>
@@ -82,20 +82,20 @@
         </template>
       </div>
     </div>
-    <template v-if="overview.definitions.length>0">
+    <template v-if="option=='overview'">
       <br>
       <Article :word="overview"></Article>
     </template>
     <br>
     <br>
-    <ul v-if="!overview.definitions">
-      <li v-for="(item, index) in definitions" :key="index">
+    <ul>
+      <li v-if="option=='definition'" v-for="(item, index) in definitions" :key="index">
         <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
       </li>
-      <li v-for="(item, index) in synonym.words" :key="index">
+      <li v-if="option=='synonym'" v-for="(item, index) in synonym.words" :key="index">
         <Card :text="item"></Card>
       </li>
-      <li v-for="(item, index) in antonym.words" :key="index">
+      <li v-if="option=='antonym'" v-for="(item, index) in antonym.words" :key="index">
         <Card :text="item"></Card>
       </li>
     </ul>
@@ -160,7 +160,7 @@ export default {
       this.getAudio()
       this.getHyphenation()
     },
-    getDefinition (limit = 200) {
+    getDefinition (limit = 5) {
       console.log('searching')
       wordnikServices.definitions(this.word, {
         params: {
