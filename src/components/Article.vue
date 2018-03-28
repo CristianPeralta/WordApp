@@ -32,7 +32,7 @@
           </div>
         </article>
 
-        <article class="media">
+        <article class="media" v-if="word.examples">
           <figure class="media-left">
             <p class="image is-48x48">
               <img src="https://image.flaticon.com/icons/svg/468/468045.svg">
