@@ -57,7 +57,7 @@
         <Article ref="wordDay" :word="wordOfDay"></Article>
       </template>
     </div>
-    <div style="text-align: center; font-size: 30px;">
+    <div v-if="(option!='synonym')&&(option!='antonym')" style="text-align: center; font-size: 30px;">
       <template  v-for="(item, index) in hyphenation">
         <template v-if="item.type=='stress'">
           <strong :key="index">{{item.text}} </strong>
@@ -65,7 +65,7 @@
         <span v-else :key="index">{{item.text}} </span>
       </template>
     </div>
-    <div style="text-align: center; font-size: 30px;">
+    <div v-if="(option!='synonym')&&(option!='antonym')" style="text-align: center; font-size: 30px;">
       <div class="columns">
         <template v-for="(item, index) in audio">
           <div class="column" :key="index">
@@ -86,12 +86,12 @@
       <li v-if="option=='definition'" v-for="(item, index) in definitions" :key="index">
         <Card :title="item.partOfSpeech" :source="item.sourceDictionary" :text="item.text" :attribution="item.attributionText"></Card>
       </li>
-      <li v-if="option=='synonym'" v-for="(item, index) in synonym.words" :key="index">
-        <Card :text="item"></Card>
-      </li>
-      <li v-if="option=='antonym'" v-for="(item, index) in antonym.words" :key="index">
-        <Card :text="item"></Card>
-      </li>
+      <div v-if="option=='synonym'" class="tags centered" >
+        <span style="font-size: 30px;" v-for="(item, index) in synonym.words" :key="index" class="tag">{{item}}</span>
+      </div>
+      <div v-if="option=='antonym'" class="tags">
+        <span style="font-size: 30px;" v-for="(item, index) in antonym.words" :key="index" class="tag">{{item}}</span>
+      </div>
     </ul>
   </div>
 </template>

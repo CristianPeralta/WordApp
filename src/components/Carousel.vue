@@ -29,6 +29,7 @@ export default {
   name: 'Carousel',
   data () {
     return {
+      automaticSlide: true,
       current: -1,
       currentColor: 0,
       direction: 1,
@@ -67,9 +68,11 @@ export default {
       })
     },
     infinity () {
-      setInterval(() => {
-        this.slide(1)
-      }, 3000)
+      if (this.automaticSlide) {
+        setInterval(() => {
+          this.slide(1)
+        }, 3000)
+      }
     }
   },
   created () {
