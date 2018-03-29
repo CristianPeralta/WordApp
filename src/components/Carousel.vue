@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="slider" class="content-slide" v-if="words.length>0">
     <transition-group tag="div" :name="transitionName">
-      <div v-if="(show)&&(words[current].word)" :key="current" class="slide" :class="slides[currentColor].className">
+      <div v-if="(show)&&(current>=0)&&(words[current].word)" :key="current" class="slide" :class="slides[currentColor].className">
         <p>
           <span>Do you know "</span>
           <b @click="search(words[current].word)">{{words[current].word}}</b>
@@ -15,7 +15,7 @@
     <div class="btn-slide btn-next" aria-label="Next slide" @click="slide(1)">
       &#10095;
     </div>
-    <footer>
+    <footer style="text-align: center;">
       <span>Based</span>
       <a href="https://codepen.io/adaban/pen/qoqLJb">Ada</a>
     </footer>
@@ -29,9 +29,8 @@ export default {
   name: 'Carousel',
   data () {
     return {
-      current: 0,
+      current: -1,
       currentColor: 0,
-      currentColot: 0,
       direction: 1,
       transitionName: 'fade',
       show: false,
@@ -45,18 +44,17 @@ export default {
     }
   },
   methods: {
-    slide (dir) {
+    async slide (dir) {
       this.direction = dir
       if (dir === 1) {
         this.transitionName = 'slide-next'
-        this.getRandomWord()
+        await this.getRandomWord()
+        this.current++
       } else {
         this.transitionName = 'slide-prev'
       }
       var len = this.slides.length
       this.currentColor = (this.currentColor + dir % len + len) % len
-      this.current++
-      console.log(this.current)
     },
     search (word) {
       this.$emit('clicked', word)
@@ -64,6 +62,8 @@ export default {
     getRandomWord () {
       wordnikServices.randomWord().then((response) => {
         this.words.push(response.data)
+      }).then(() => {
+        console.log(this.current)
       })
     },
     infinity () {
