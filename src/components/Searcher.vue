@@ -53,6 +53,13 @@
             </p>
           </a>
         </figure>
+        <figure class="media-content" style="display: inline-block;">
+          <a @click="saveWord()">
+            <p class="image is-32x32">
+              <img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/128/save-icon.png">
+            </p>
+          </a>
+        </figure>
       </div>
       <Carousel @clicked="explore" :automaticSlide="stateSlide"></Carousel>
       <br>
@@ -125,6 +132,7 @@ export default {
       word: '',
       option: 'definition',
       slideState: true,
+      wordsSaved: [],
       definitions: [],
       examples: [],
       hyphenation: [],
@@ -173,6 +181,9 @@ export default {
       this.getOverview()
       this.getAudio()
       this.getHyphenation()
+    },
+    saveWord (word) {
+      this.wordsSaved.push(word)
     },
     getDefinition (limit = 5) {
       console.log('searching')
