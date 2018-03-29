@@ -15,8 +15,7 @@
     <div class="btn-slide btn-next" aria-label="Next slide" @click="slide(1)">
       &#10095;
     </div>
-    <footer style="text-align: center;">
-      <span>Based</span>
+    <footer style="text-align: center; background: #4dff4d">
       <a href="https://codepen.io/adaban/pen/qoqLJb">Ada</a>
     </footer>
   </div>
@@ -53,6 +52,7 @@ export default {
         this.current++
       } else {
         this.transitionName = 'slide-prev'
+        this.current--
       }
       var len = this.slides.length
       this.currentColor = (this.currentColor + dir % len + len) % len
