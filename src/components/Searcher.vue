@@ -38,7 +38,23 @@
     <div v-if="definitions.length==0 && synonym.length==0 && antonym.length==0">
       <br>
       <br>
-      <Carousel @clicked="explore"></Carousel>
+      <div class="center-figure">
+        <figure class="media-content" style="display: inline-block;">
+          <a @click="changeSlide(true)">
+            <p class="image is-32x32">
+              <img src="https://cdn4.iconfinder.com/data/icons/eldorado-player/40/button_play_1-128.png">
+            </p>
+          </a>
+        </figure>
+        <figure class="media-content" style="display: inline-block;">
+          <a @click="changeSlide(false)">
+            <p class="image is-32x32">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk7t4zdWL-Q6NUSzV7lA3gOHRX9ggEwFQHdM9cNxsgb1Heiw5FFg">
+            </p>
+          </a>
+        </figure>
+      </div>
+      <Carousel @clicked="explore" :automaticSlide="stateSlide"></Carousel>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
         <div class="hero-body" @click="focus">
@@ -108,6 +124,7 @@ export default {
       api: 'http://api.wordnik.com:80/v4',
       word: '',
       option: 'definition',
+      slideState: true,
       definitions: [],
       examples: [],
       hyphenation: [],
@@ -139,6 +156,9 @@ export default {
         definitions: this.definitions,
         examples: this.examples.examples
       }
+    },
+    stateSlide () {
+      return this.slideState
     }
   },
   methods: {
@@ -273,6 +293,9 @@ export default {
     },
     focus () {
       this.$refs.wordDay.$el.scrollIntoView()
+    },
+    changeSlide (val) {
+      this.slideState = val
     }
   }
 }
@@ -281,4 +304,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 @import 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css';
+.center-figure{
+  display: content;
+  justify-content: center;
+  align-items: center;
+}
 </style>

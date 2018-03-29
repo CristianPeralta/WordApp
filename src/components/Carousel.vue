@@ -27,9 +27,9 @@ import wordnikServices from '@/services/wordnik'
 
 export default {
   name: 'Carousel',
+  props: ["automaticSlide"],
   data () {
     return {
-      automaticSlide: true,
       current: -1,
       currentColor: 0,
       direction: 1,
@@ -68,11 +68,11 @@ export default {
       })
     },
     infinity () {
-      if (this.automaticSlide) {
-        setInterval(() => {
+      setInterval(() => {
+        if (this.automaticSlide===true) {
           this.slide(1)
-        }, 3000)
-      }
+        }
+      }, 3000)
     }
   },
   created () {
