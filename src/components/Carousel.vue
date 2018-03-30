@@ -15,7 +15,7 @@
     <div class="btn-slide btn-next" aria-label="Next slide" @click="slide(1)">
       &#10095;
     </div>
-    <footer style="text-align: center; background: #4dff4d">
+    <footer style="hidden: true; ;text-align: center; background: #4dff4d">
       <a href="https://codepen.io/adaban/pen/qoqLJb">Ada</a>
     </footer>
   </div>
@@ -88,6 +88,7 @@ export default {
   },
   mounted () {
     this.show = true
+    this.slide(1)
     this.infinity()
   }
 }
