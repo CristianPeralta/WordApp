@@ -70,8 +70,9 @@
       </div>
       <Carousel @clicked="explore" @saveCurrentWord="saveWordInSlide" :automaticSlide="stateSlide" :currentWord="getCurrentWord"></Carousel>
       <br>
-      <div v-class="">
-
+      <a @click="changeShowWords" href="#">Words Saved</a>
+      <div v-if="showWords" class="tags">
+        <span style="font-size: 15px;" v-for="(item, index) in wordsSaved" :key="index" class="tag is-link">{{item}}</span>
       </div>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
@@ -144,6 +145,7 @@ export default {
       option: 'definition',
       getCurrentWord: false,
       slideState: true,
+      showWords: false,
       wordsSaved: [],
       definitions: [],
       examples: [],
@@ -194,14 +196,18 @@ export default {
       this.getAudio()
       this.getHyphenation()
     },
+    changeShowWords () {
+      this.showWords = !this.showWords
+    },
     saveWord () {
       this.wordsSaved.push(this.word)
     },
     saveWordSlide () {
-      this.wordsSaved.push(this.word)
+      this.getCurrentWord = !this.getCurrentWord
     },
     saveWordInSlide (value) {
       this.wordsSaved.push(value)
+      this.getCurrentWord = false
     },
     getDefinition (limit = 5) {
       console.log('searching')

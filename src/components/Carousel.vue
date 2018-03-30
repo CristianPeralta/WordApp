@@ -43,6 +43,14 @@ export default {
       words: []
     }
   },
+  watch: {
+    currentWord (val) {
+      if (this.currentWord) {
+        console.log(this.currentWord)
+        this.$emit('saveCurrentWord', this.words[this.current].word)
+      }
+    }
+  },
   methods: {
     async slide (dir) {
       this.direction = dir
@@ -50,9 +58,6 @@ export default {
         this.transitionName = 'slide-next'
         await this.getRandomWord()
         this.current++
-        if (currentWord) {
-          this.$emit('saveCurrentWord', this.words[current].word)
-        }
       } else {
         this.transitionName = 'slide-prev'
         this.current--
@@ -67,7 +72,7 @@ export default {
       wordnikServices.randomWord().then((response) => {
         this.words.push(response.data)
       }).then(() => {
-        console.log(this.current)
+
       })
     },
     infinity () {
