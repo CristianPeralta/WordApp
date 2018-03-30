@@ -72,7 +72,10 @@
       <br>
       <a @click="changeShowWords" href="#">Words Saved</a>
       <div v-if="showWords" class="tags">
-        <span style="font-size: 15px;" v-for="(item, index) in wordsSaved" :key="index" class="tag is-link">{{item}}</span>
+        <span style="font-size: 15px;" v-for="(item, index) in wordsSaved" :key="index" class="tag is-link">
+          {{item}}
+          <button @click="deleteWord(index)" class="delete is-small"></button>
+        </span>
       </div>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
@@ -201,6 +204,9 @@ export default {
     },
     saveWord () {
       this.wordsSaved.push(this.word)
+    },
+    deleteWord (index) {
+      this.wordsSaved.splice(index, 1)
     },
     saveWordSlide () {
       this.getCurrentWord = !this.getCurrentWord
