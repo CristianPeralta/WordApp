@@ -26,7 +26,7 @@ import wordnikServices from '@/services/wordnik'
 
 export default {
   name: 'Carousel',
-  props: ['automaticSlide'],
+  props: ['automaticSlide', 'currentWord'],
   data () {
     return {
       current: -1,
@@ -50,6 +50,9 @@ export default {
         this.transitionName = 'slide-next'
         await this.getRandomWord()
         this.current++
+        if (currentWord) {
+          this.$emit('saveCurrentWord', this.words[current].word)
+        }
       } else {
         this.transitionName = 'slide-prev'
         this.current--

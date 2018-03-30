@@ -61,14 +61,18 @@
           </a>
         </figure>
         <figure class="media-content" style="display: inline-block;">
-          <a @click="saveWord()">
+          <a @click="saveWordSlide()">
             <p class="image is-32x32">
               <img src="https://image.flaticon.com/icons/svg/54/54178.svg">
             </p>
           </a>
         </figure>
       </div>
-      <Carousel @clicked="explore" :automaticSlide="stateSlide"></Carousel>
+      <Carousel @clicked="explore" @saveCurrentWord="saveWordInSlide" :automaticSlide="stateSlide" :currentWord="getCurrentWord"></Carousel>
+      <br>
+      <div v-class="">
+
+      </div>
       <br>
       <section class="hero is-info" style="text-align: center; font-size: 30px;">
         <div class="hero-body" @click="focus">
@@ -138,6 +142,7 @@ export default {
       api: 'http://api.wordnik.com:80/v4',
       word: '',
       option: 'definition',
+      getCurrentWord: false,
       slideState: true,
       wordsSaved: [],
       definitions: [],
@@ -191,6 +196,12 @@ export default {
     },
     saveWord () {
       this.wordsSaved.push(this.word)
+    },
+    saveWordSlide () {
+      this.wordsSaved.push(this.word)
+    },
+    saveWordInSlide (value) {
+      this.wordsSaved.push(value)
     },
     getDefinition (limit = 5) {
       console.log('searching')
