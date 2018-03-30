@@ -77,7 +77,7 @@
       <br>
       <div v-if="showWords" class="tags">
         <span style="font-size: 15px;" v-for="(item, index) in wordsSaved" :key="index" class="tag is-warning">
-          {{item}}
+          <span @click="explore(item)">{{item}}</span>
           <button @click="deleteWord(index)" class="delete is-small"></button>
         </span>
       </div>
