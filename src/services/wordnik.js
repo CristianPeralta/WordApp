@@ -3,26 +3,74 @@ import wApi from '@/services/source/wordnik'
 let apiKey = 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
 
 export default {
-  definitions (word, params) {
-    return wApi().get('/word.json/' + word + '/definitions', params)
+  definitions (word, limit) {
+    return wApi().get('/word.json/' + word + '/definitions', {
+      params: {
+        limit: limit,
+        includeRelated: true,
+        sourceDictionaries: 'all',
+        useCanonical: false,
+        includeTags: false,
+        api_key: apiKey
+      }
+    })
   },
-  examples (word, params) {
-    return wApi().get('/word.json/' + word + '/examples', params)
+  examples (word) {
+    return wApi().get('/word.json/' + word + '/examples', {
+      params: {
+        includeDuplicates: false,
+        skip: 0,
+        useCanonical: false,
+        limit: 5,
+        api_key: apiKey
+      }
+    })
   },
-  hyphenation (word, params) {
-    return wApi().get('/word.json/' + word + '/hyphenation', params)
+  hyphenation (word) {
+    return wApi().get('/word.json/' + word + '/hyphenation', {
+      params: {
+        useCanonical: false,
+        limit: 50,
+        api_key: apiKey
+      }
+    })
   },
-  synonym (word, params) {
-    return wApi().get('/word.json/' + word + '/relatedWords', params)
+  synonym (word) {
+    return wApi().get('/word.json/' + word + '/relatedWords', {
+      params: {
+        useCanonical: false,
+        relationshipTypes: 'synonym',
+        limitPerRelationshipType: 20,
+        api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+      }
+    })
   },
-  antonym (word, params) {
-    return wApi().get('/word.json/' + word + '/relatedWords', params)
+  antonym (word) {
+    return wApi().get('/word.json/' + word + '/relatedWords', {
+      params: {
+        useCanonical: false,
+        relationshipTypes: 'antonym',
+        limitPerRelationshipType: 20,
+        api_key: apiKey
+      }
+    })
   },
   audio (word, params) {
-    return wApi().get('/word.json/' + word + '/audio', params)
+    return wApi().get('/word.json/' + word + '/audio', {
+      params: {
+        useCanonical: false,
+        limit: 50,
+        api_key: apiKey
+      }
+    })
   },
-  wordOfDay (params) {
-    return wApi().get('/words.json/wordOfTheDay', params)
+  wordOfDay (date) {
+    return wApi().get('/words.json/wordOfTheDay', {
+      params: {
+        date: date,
+        api_key: apiKey
+      }
+    })
   },
   randomWord () {
     return wApi().get('/words.json/randomWord', {

@@ -139,7 +139,6 @@ export default {
       getCurrentWord: false,
       slideState: true,
       showWords: true,
-      modal: false,
       wordsSaved: [],
       definitions: [],
       examples: [],
@@ -208,17 +207,7 @@ export default {
       this.getCurrentWord = false
     },
     getDefinition (limit = 5) {
-      console.log('searching')
-      wordnikServices.definitions(this.word, {
-        params: {
-          limit: limit,
-          includeRelated: true,
-          sourceDictionaries: 'all',
-          useCanonical: false,
-          includeTags: false,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.definitions(this.word, limit).then((response) => {
         this.definitions = response.data
       })
     },
@@ -227,80 +216,39 @@ export default {
       this.getExamples()
     },
     getExamples () {
-      wordnikServices.examples(this.word, {
-        params: {
-          includeDuplicates: false,
-          skip: 0,
-          useCanonical: false,
-          limit: 5,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.examples(this.word).then((response) => {
         this.examples = response.data
       })
     },
     getHyphenation () {
-      wordnikServices.hyphenation(this.word, {
-        params: {
-          useCanonical: false,
-          limit: 50,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.hyphenation(this.word).then((response) => {
         this.hyphenation = response.data
       })
     },
     getSynomyn () {
-      wordnikServices.synonym(this.word, {
-        params: {
-          useCanonical: false,
-          relationshipTypes: 'synonym',
-          limitPerRelationshipType: 20,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.synonym(this.word).then((response) => {
         this.synonym = response.data[0]
       })
     },
     getAntonym () {
-      wordnikServices.antonym(this.word, {
-        params: {
-          useCanonical: false,
-          relationshipTypes: 'antonym',
-          limitPerRelationshipType: 20,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.antonym(this.word).then((response) => {
         this.antonym = response.data[0]
       })
     },
     getAudio () {
-      wordnikServices.audio(this.word, {
-        params: {
-          useCanonical: false,
-          limit: 50,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-        }
-      }).then((response) => {
+      wordnikServices.audio(this.word).then((response) => {
         this.audio = response.data
       })
     },
     getWordOfDay () {
       this.getDateToday().then((date) => {
-        console.log(date)
-        wordnikServices.wordOfDay({
-          params: {
-            date: date,
-            api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-          }
-        }).then((response) => {
+        wordnikServices.wordOfDay(date).then((response) => {
           this.wordOfDay = response.data
         })
       })
     },
     getRandomWord () {
       wordnikServices.randomWord().then((response) => {
-        console.log(response)
         this.randomWord = response.data
       })
     },
@@ -329,9 +277,6 @@ export default {
     },
     changeSlide (val) {
       this.slideState = val
-    },
-    changeModal () {
-      this.modal = !this.modal
     }
   }
 }
