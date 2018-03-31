@@ -7,7 +7,7 @@
     </a>
     <center>
       <Modal :title="wordOfDay.word">
-        <Article ref="wordDay" :word="wordOfDay"></Article>
+        <Article :word="wordOfDay"></Article>
       </Modal>
     </center>
     <figure v-if="this.word.trim().length != 0" class="media-content" style="position:fixed; top: 0; right:0; padding: 10px">
@@ -65,7 +65,7 @@
           </a>
         </figure>
         <figure class="media-content" style="display: inline-block;">
-          <a @click="saveWordSlide()">
+          <a @click="getWordSlide()">
             <p class="image is-32x32">
               <img src="https://image.flaticon.com/icons/svg/54/54178.svg">
             </p>
@@ -133,7 +133,6 @@ export default {
   name: 'Searcher',
   data () {
     return {
-      api: 'http://api.wordnik.com:80/v4',
       word: '',
       option: 'definition',
       getCurrentWord: false,
@@ -199,7 +198,7 @@ export default {
     deleteWord (index) {
       this.wordsSaved.splice(index, 1)
     },
-    saveWordSlide () {
+    getWordSlide () {
       this.getCurrentWord = !this.getCurrentWord
     },
     saveWordInSlide (value) {
@@ -271,9 +270,7 @@ export default {
     backHome () {
       this.word = ''
       this.definitions = []
-    },
-    focus () {
-      this.$refs.wordDay.$el.scrollIntoView()
+      this.hyphenation = []
     },
     changeSlide (val) {
       this.slideState = val

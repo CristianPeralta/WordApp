@@ -46,7 +46,6 @@ export default {
   watch: {
     currentWord (val) {
       if (this.currentWord) {
-        console.log(this.currentWord)
         this.$emit('saveCurrentWord', this.words[this.current].word)
       }
     }
