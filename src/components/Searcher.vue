@@ -6,7 +6,9 @@
       </span>
     </a>
     <center>
-      <a @click="changeModal" class="button is-large is-focused" style="margin-top: 10px;text-align:center;">Word of Day</a>
+      <Modal :title="wordOfDay.word">
+        <Article ref="wordDay" :word="wordOfDay"></Article>
+      </Modal>
     </center>
     <figure v-if="this.word.trim().length != 0" class="media-content" style="position:fixed; top: 0; right:0; padding: 10px">
       <a @click="saveWord()">
@@ -118,19 +120,6 @@
         <span style="font-size: 30px;" v-for="(item, index) in antonym.words" :key="index" class="tag">{{item}}</span>
       </div>
     </ul>
-    <div class="modal" :class="{'is-active': modal}">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">{{wordOfDay.word}}</p>
-          <button @click="changeModal" class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <!-- Content ... -->
-          <Article ref="wordDay" :word="wordOfDay"></Article>
-        </section>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -139,6 +128,7 @@ import wordnikServices from '@/services/wordnik'
 import Card from '@/components/Card'
 import Article from '@/components/Article'
 import Carousel from '@/components/Carousel'
+import Modal from '@/components/Modal'
 export default {
   name: 'Searcher',
   data () {
@@ -170,7 +160,8 @@ export default {
   components: {
     Card,
     Article,
-    Carousel
+    Carousel,
+    Modal
   },
   created () {
     this.getWordOfDay()
