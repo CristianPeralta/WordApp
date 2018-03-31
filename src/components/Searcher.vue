@@ -21,13 +21,24 @@
     <br>
     <template v-if="definitions.length==0">
       <br>
-      <br><br><br>
+      <br>
     </template>
+    <div class="" style="display: flex;
+  justify-content: center;">
+      <figure >
+        <a @click="saveWord()">
+          <p class="image is-64x64">
+            <img src="https://cdn3.iconfinder.com/data/icons/school-and-education-2/56/education_icons_IF-02-512.png">
+          </p>
+        </a>
+      </figure>
+    </div>
     <label class="label is-large title is-2" style="text-align: center;">Search</label>
+    <br>
     <div class="field has-addons has-addons-centered">
       <p class="control">
         <span class="select">
-          <select v-model="option">
+          <select style="font-size: 20px;" v-model="option">
             <option selected value="overview">Overview</option>
             <option value="definition">Definition</option>
             <option value="synonym">Synonym</option>
@@ -36,10 +47,10 @@
         </span>
       </p>
       <p class="control">
-        <input v-model="word" class="input" type="text" placeholder="Type here!">
+        <input style="font-size: 20px;" v-model="word" class="input" type="text" placeholder="Type here!">
       </p>
       <p class="control">
-        <a @click="search()" class="button is-primary">
+        <a style="font-size: 20px;" @click="search()" class="button is-primary">
           Go
         </a>
       </p>
